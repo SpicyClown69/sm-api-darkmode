@@ -3,6 +3,9 @@
   "description": "For all the SM modders out there, that value their precious eyeballs.",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions": [
+    "storage"
+  ],
   "web_accessible_resources": [
     {
       "resources": [ "DarkBearingSmall.ico" ],
@@ -13,7 +16,7 @@
 		{
 			"matches":["https://scrapmechanic.com/api/*"],
 			"css":["customdarkmode.css","highlight/styles/atom-one-dark.min.css"],
-      "js":["highlight/highlight.min.js","changeicon.js"]
+      "js":["highlight/highlight.min.js","changeicon.js","searchFeature.js"]
 		}
 	],
   "icons": {
@@ -21,5 +24,8 @@
     "32": "/images/dark_bearing32.png",
     "48": "/images/dark_bearing48.png",
     "128": "/images/dark_bearing128.png"
+  },
+  "action": {
+    "default_popup": "options.html"
   }
 }

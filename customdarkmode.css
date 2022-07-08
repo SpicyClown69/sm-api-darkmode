@@ -175,3 +175,36 @@ div.deprecated {
   padding: 5px;
   border-radius: 10px;
 }
+
+input[type=text] {
+  border: 2px solid #8a99b6;
+  background-color: #282c34;
+  border-radius: 4px;
+  color: #dde5f7;
+  font-family: 'Fira Mono';
+  font-size: 90%;
+}
+
+input[type=text]:active {
+  border: 2px solid #8a99b6;
+  background-color: #282c34;
+  border-radius: 4px;
+}
+
+button {
+  border: 2px solid #8a99b6;
+  background-color: #282c34;
+  border-radius: 4px;
+  color: #dde5f7;
+  font-family: 'Fira Mono';
+  font-size: 90%;
+}
+
+button:active {
+  border: 2px solid #8a99b6;
+  background-color: #1b1d22;
+  border-radius: 4px;
+  color: #dde5f7;
+  font-family: 'Fira Mono';
+  font-size: 90%;
+}
