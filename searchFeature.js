@@ -11,7 +11,7 @@ function search() {
         for (let type in docs[env]) {
             for (let obj of docs[env][type]) {
                 if (obj.toLowerCase().includes(searchTerm)) {
-                    searchResults.push({'name':obj,'path':type + '_' + env + '_' + obj.replaceAll(".","_")});
+                    searchResults.push({'name':obj,'path':type + '_' + env + '_' + obj.replaceAll(".","_"), 'env': env});
                 }
             }
         }
@@ -20,26 +20,32 @@ function search() {
         document.getElementById('content').insertAdjacentHTML("beforeend",'<br><div>No Results Found, please try again.</div>');
     } else {
         for (let result of searchResults) {
-            document.getElementById('content').insertAdjacentHTML("beforeend",'<br><div><a href="https://scrapmechanic.com/api/' + result.path + '.html">' + result.name + '</a></div>');
+            document.getElementById('content').insertAdjacentHTML("beforeend",'<br><div><a href="https://scrapmechanic.com/api/' + result.path + '.html">' + result.name + ' (' + result.env + ')</a></div>');
         }
     }
 }
 
-function addSearchBar() {
-    document.getElementById("content").innerHTML = `
-    <div
-        id="searchBar"
-        style="background-color:#282c34;padding:3px;border-radius:10px;display: flex;align-items: center;justify-content: center;"
-    >
-       Search: <input type="text" id="searchInput">
-    </
-    input><button class="confirmSearch">Search!</button></div>` + document.getElementById("content").innerHTML;
-    for (let element of document.getElementsByClassName("confirmSearch")) {
-        element.addEventListener("click", search, false);
+function addSearchBar(searchInput) {
+    if (searchInput) {
+        document.body.innerHTML = `
+        <div id="searchBar" style="background-color:#282c34;padding:3px;border-radius:10px;display:flex;">
+            <a href="${chrome.runtime.getURL("main.html")}"><img src="${chrome.runtime.getURL("logo.png")}" width="50" height="50"></a>&nbsp;<h1>SM API Dark Mode</h1>
+            <div id="searchBox">
+            <a href="https://scrapmechanic.com/api/index.html"/><button>Home</button></a>
+            Search: <input type="text" id="searchInput"><button class="confirmSearch">Search!</button>
+           </div>
+        </div>` + document.body.innerHTML;
+        for (let element of document.getElementsByClassName("confirmSearch")) {
+            element.addEventListener("click", search, false);
+        }
+    } else {
+        document.body.innerHTML = `
+        <div id="searchBar" style="background-color:#282c34;padding:3px;border-radius:10px;display:flex;">
+            <a href="${chrome.runtime.getURL("main.html")}"><img src="${chrome.runtime.getURL("logo.png")}" width="50" height="50"></a>&nbsp;<h1>SM API Dark Mode</h1>
+        </div>` + document.body.innerHTML;
     }
+
 }
 chrome.storage.local.get(["searchEnabled"], function(result) {
-    if (result.searchEnabled) {
-        addSearchBar()
-    }
+        addSearchBar(result.searchEnabled)
 });
